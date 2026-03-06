@@ -26,6 +26,16 @@
         .card { background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; text-align: center; padding-bottom: 5px; cursor: pointer; }
         .card img { width: 100%; height: 75px; object-fit: cover; }
         .card b { font-size: 9px; display: block; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        /* MPYA: Market Panel Styles */
+        .mod-panel { background: #1a1111; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; overflow: hidden; border-left: 4px solid red; }
+        .mod-panel img { width: 100%; height: 180px; object-fit: cover; }
+        .mod-info { padding: 15px; }
+        .mod-name { font-size: 1.4rem; color: #fff; margin-bottom: 5px; }
+        .mod-price { color: #25d366; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
+        .mod-desc { font-size: 0.85rem; color: #ccc; margin-bottom: 15px; line-height: 1.4; }
+        .buy-btn { background: #25d366; color: black; font-weight: bold; border: none; padding: 10px; border-radius: 5px; cursor: pointer; display: block; text-decoration: none; text-align: center; }
+
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .view-all { color: red; font-size: 0.7rem; cursor: pointer; font-weight: bold; }
         input, select, textarea, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: #000; color: white; }
@@ -69,7 +79,7 @@
 
         <div class="sidebar" id="sidebar">
             <a href="#" onclick="showPage('home-page')">🏠 HOME</a>
-            <a href="#" onclick="showPage('market-menu-page')">⚽ MARKET</a>
+            <a href="#" onclick="showPage('market-menu-page')">🎮 GAMES MARKET</a>
             <a href="#" onclick="showPage('android-page')">📱 ANDROID</a>
             <a href="#" onclick="showPage('pc-page')">💻 PC GAMES</a>
             <a href="#" onclick="showPage('admin-login-page')">🛠️ ADMIN</a>
@@ -91,17 +101,44 @@
             </div>
             <div id="home-pc-grid" class="home-grid"></div>
             
-            <button style="background:darkred; padding:15px; margin-top:20px;" onclick="showPage('market-menu-page')">⚽ EFOOTBALL MARKET</button>
+            <button style="background:darkred; padding:15px; margin-top:20px;" onclick="showPage('market-menu-page')">🎮 GO TO GAMES MARKET</button>
         </div>
 
         <div id="market-menu-page" class="page-content">
             <button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px; margin-bottom:15px;">← BACK</button>
-            <h1 style="text-align:center; color:red;">MARKET</h1>
-            <button style="height:80px; font-size:1.5rem;" onclick="showPage('efootball-list-page')">NUNUA KIKOSI</button>
-            <button style="height:80px; font-size:1.5rem; background:green;" onclick="window.open('https://wa.me/255619578699?text=Nahitaji kuuza kikosi')">UZA KIKOSI</button>
+            <h1 style="text-align:center; color:red; margin-bottom:20px;">GAMES MARKET</h1>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="border: 1px solid #333; padding: 10px; border-radius: 8px; background: #111;">
+                    <h3 style="color: #fff; margin-bottom: 10px;">1. EFOOTBALL MARKET</h3>
+                    <button style="background: green; margin-top: 0;" onclick="window.open('https://wa.me/255619578699?text=Nahitaji kuuza kikosi')">UZA KIKOSI</button>
+                    <button style="background: #e60000;" onclick="showPage('efootball-list-page')">NUNUA KIKOSI</button>
+                </div>
+
+                <button style="height:70px; font-size:1.2rem; background: #0056b3;" onclick="showPage('bussid-page')">2. BUS SIMULATOR INDONESIA MODS</button>
+                
+                <button style="height:70px; font-size:1.2rem; background: #ff8c00;" onclick="showPage('ets2-page')">3. ETS2 MODS</button>
+            </div>
         </div>
 
-        <div id="efootball-list-page" class="page-content"><button onclick="showPage('market-menu-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><div id="efootball-grid" class="full-grid" style="margin-top:15px;"></div></div>
+        <div id="efootball-list-page" class="page-content">
+            <button onclick="showPage('market-menu-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button>
+            <h2 style="color:red; margin: 15px 0;">NUNUA KIKOSI</h2>
+            <div id="efootball-grid" class="full-grid"></div>
+        </div>
+
+        <div id="bussid-page" class="page-content">
+            <button onclick="showPage('market-menu-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button>
+            <h2 style="color:#0056b3; margin: 15px 0;">BUSSID MODS & MAPS</h2>
+            <div id="bussid-container"></div>
+        </div>
+
+        <div id="ets2-page" class="page-content">
+            <button onclick="showPage('market-menu-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button>
+            <h2 style="color:#ff8c00; margin: 15px 0;">ETS2 MODS</h2>
+            <div id="ets2-container"></div>
+        </div>
+
         <div id="android-page" class="page-content"><button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><div id="android-grid" class="full-grid" style="margin-top:15px;"></div></div>
         <div id="pc-page" class="page-content"><button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><div id="pc-grid" class="full-grid" style="margin-top:15px;"></div></div>
 
@@ -113,7 +150,7 @@
             <div class="stat-card" onclick="showPage('manage-all-page')"><p>TOTAL USERS</p><h1 id="userCount">0</h1></div>
             
             <div style="background:#111; padding:15px; border-radius:10px; border:1px solid #333; margin-bottom:20px;">
-                <h3>SLIDER PANEL (5 IMAGES)</h3>
+                <h3>SLIDER PANEL</h3>
                 <input type="text" class="sl-in" placeholder="Image URL 1">
                 <input type="text" class="sl-in" placeholder="Image URL 2">
                 <input type="text" class="sl-in" placeholder="Image URL 3">
@@ -123,17 +160,15 @@
             </div>
 
             <div style="background:#111; padding:15px; border-radius:10px; border:1px solid #333; margin-bottom:20px;">
-                <h3>UPLOAD GAME</h3>
+                <h3>UPLOAD GAME (ANDROID/PC)</h3>
                 <select id="gCat"><option value="android">ANDROID</option><option value="pc">PC</option></select>
                 <input type="text" id="gName" placeholder="Name">
                 <input type="text" id="gIcon" placeholder="Icon URL">
                 <textarea id="gInfo" placeholder="Description"></textarea>
-                
                 <select id="linkType" onchange="toggleLinkInputs()">
-                    <option value="single">Single Link (Moja tu)</option>
+                    <option value="single">Single Link</option>
                     <option value="pack">Pack (APK, OBB, DATA)</option>
                 </select>
-
                 <div id="singleLinkBox"><input type="text" id="gLink" placeholder="Download Link"></div>
                 <div id="packLinkBox" style="display:none; border:1px dashed red; padding:10px; margin-top:10px;">
                     <input type="text" id="apkL" placeholder="APK Link">
@@ -143,7 +178,20 @@
                 <button onclick="upload('game')">UPLOAD</button>
             </div>
             
-            <div style="background:#111; padding:15px; border-radius:10px; border:1px solid #25d366;"><h3 style="color:#25d366;">MARKET UPLOAD</h3><input type="text" id="eName" placeholder="Squad Name"><input type="text" id="eIcon" placeholder="Squad Image URL"><textarea id="eDesc" placeholder="Details & Price"></textarea><input type="text" id="eLink" placeholder="WA Link"><button onclick="upload('efoot')" style="background:#25d366;">POST SQUAD</button></div>
+            <div style="background:#111; padding:15px; border-radius:10px; border:1px solid #25d366;">
+                <h3 style="color:#25d366;">MARKET UPLOAD</h3>
+                <select id="eCat">
+                    <option value="efootball">EFOOTBALL SQUAD</option>
+                    <option value="bussid">BUSSID MOD</option>
+                    <option value="ets2">ETS2 MOD</option>
+                </select>
+                <input type="text" id="eName" placeholder="Name (e.g. Scania Bus)">
+                <input type="text" id="eIcon" placeholder="Image URL">
+                <input type="text" id="ePrice" placeholder="Price (e.g. TSH 2,000)">
+                <textarea id="eDesc" placeholder="Details/Description"></textarea>
+                <input type="text" id="eLink" placeholder="WhatsApp/Buy Link">
+                <button onclick="upload('market')" style="background:#25d366;">POST TO MARKET</button>
+            </div>
         </div>
 
         <div id="manage-all-page" class="page-content"><button onclick="showPage('admin-page')" style="width:auto; padding:5px 15px;">← BACK</button><div id="user-details-list"></div><div id="delete-master-list"></div></div>
@@ -179,24 +227,32 @@
         });
 
         window.upload = (m) => {
-            const isP = document.getElementById('linkType').value === 'pack';
-            const data = m === 'game' ? {
-                name: document.getElementById('gName').value, icon: document.getElementById('gIcon').value, desc: document.getElementById('gInfo').value, cat: document.getElementById('gCat').value,
-                type: isP ? 'pack' : 'single', link: isP ? '' : document.getElementById('gLink').value, apk: isP ? document.getElementById('apkL').value : '', obb: isP ? document.getElementById('obbL').value : '', dat: isP ? document.getElementById('datL').value : ''
-            } : { name: document.getElementById('eName').value, icon: document.getElementById('eIcon').value, desc: document.getElementById('eDesc').value, link: document.getElementById('eLink').value, cat: 'efootball', type: 'single' };
+            let data;
+            if(m === 'game'){
+                const isP = document.getElementById('linkType').value === 'pack';
+                data = {
+                    name: document.getElementById('gName').value, icon: document.getElementById('gIcon').value, desc: document.getElementById('gInfo').value, cat: document.getElementById('gCat').value,
+                    type: isP ? 'pack' : 'single', link: isP ? '' : document.getElementById('gLink').value, apk: isP ? document.getElementById('apkL').value : '', obb: isP ? document.getElementById('obbL').value : '', dat: isP ? document.getElementById('datL').value : ''
+                };
+            } else {
+                data = { 
+                    name: document.getElementById('eName').value, 
+                    icon: document.getElementById('eIcon').value, 
+                    desc: document.getElementById('eDesc').value, 
+                    price: document.getElementById('ePrice').value,
+                    link: document.getElementById('eLink').value, 
+                    cat: document.getElementById('eCat').value, 
+                    type: 'market' 
+                };
+            }
             push(ref(db, 'games/'), data).then(() => alert("Success!"));
         };
 
-        // ILIBORESHWA: Sasa unaweza kudelete User
         onValue(ref(db, 'users/'), (s) => {
             const users = s.val() || {}; document.getElementById('userCount').innerText = Object.keys(users).length;
             const det = document.getElementById('user-details-list'); det.innerHTML = "<h2>USERS</h2>";
             for(let id in users) {
-                det.innerHTML += `
-                <div class="user-row" style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>${users[id].name}<br>${users[id].email}<br><span style="color:yellow">PASS: ${users[id].pass}</span></div>
-                    <button style="width:auto; padding:5px 10px; background:red; margin:0;" onclick="removeItem('users/${id}')">DELETE</button>
-                </div>`;
+                det.innerHTML += `<div class="user-row" style="display:flex; justify-content:space-between; align-items:center;"><div>${users[id].name}<br>${users[id].email}<br><span style="color:yellow">PASS: ${users[id].pass}</span></div><button style="width:auto; padding:5px 10px; background:red; margin:0;" onclick="removeItem('users/${id}')">DELETE</button></div>`;
             }
         });
 
@@ -208,32 +264,48 @@
         });
 
         const renderGrids = (data) => {
-            const hA = document.getElementById('home-android-grid'), hP = document.getElementById('home-pc-grid'), eG = document.getElementById('efootball-grid'), aG = document.getElementById('android-grid'), pG = document.getElementById('pc-grid');
-            [hA, hP, eG, aG, pG].forEach(el => { if(el) el.innerHTML = ""; });
+            const hA = document.getElementById('home-android-grid'), hP = document.getElementById('home-pc-grid'), 
+                  eG = document.getElementById('efootball-grid'), aG = document.getElementById('android-grid'), 
+                  pG = document.getElementById('pc-grid'), bC = document.getElementById('bussid-container'),
+                  eC = document.getElementById('ets2-container');
+            
+            [hA, hP, eG, aG, pG, bC, eC].forEach(el => { if(el) el.innerHTML = ""; });
             
             let aCount = 0, pCount = 0;
             data.slice().reverse().forEach(item => {
                 const card = `<div class="card" onclick="openItem('${item.fbId}')"><img src="${item.icon}"><b>${item.name}</b></div>`;
+                
+                // Panel Market kwa ajili ya BUSSID na ETS2
+                const marketPanel = `
+                    <div class="mod-panel">
+                        <img src="${item.icon}">
+                        <div class="mod-info">
+                            <div class="mod-name">${item.name}</div>
+                            <div class="mod-price">${item.price || 'Price TSH'}</div>
+                            <div class="mod-desc">${item.desc}</div>
+                            <a href="${item.link}" class="buy-btn">NUNUA MOD</a>
+                        </div>
+                    </div>`;
+
                 if(item.cat === 'android') { 
                     if(aG) aG.innerHTML += card; 
                     if(hA && aCount < 3) { hA.innerHTML += card; aCount++; } 
                 }
-                if(item.cat === 'pc') { 
+                else if(item.cat === 'pc') { 
                     if(pG) pG.innerHTML += card; 
                     if(hP && pCount < 3) { hP.innerHTML += card; pCount++; } 
                 }
-                if(item.cat === 'efootball') { if(eG) eG.innerHTML += card; }
+                else if(item.cat === 'efootball') { if(eG) eG.innerHTML += card; }
+                else if(item.cat === 'bussid') { if(bC) bC.innerHTML += marketPanel; }
+                else if(item.cat === 'ets2') { if(eC) eC.innerHTML += marketPanel; }
             });
         };
 
         window.openItem = (id) => {
             const item = allData.find(x => x.fbId === id);
             let btnLabel = item.cat === 'efootball' ? "BUY NOW" : "DOWNLOAD NOW";
-            
             let btns = item.type === 'pack' ? 
-                `<button style="background:#444;" onclick="window.open('${item.apk}')">DOWNLOAD APK</button>
-                 <button style="background:#444;" onclick="window.open('${item.obb}')">DOWNLOAD OBB</button>
-                 <button style="background:#444;" onclick="window.open('${item.dat}')">DOWNLOAD DATA</button>` :
+                `<button style="background:#444;" onclick="window.open('${item.apk}')">DOWNLOAD APK</button><button style="background:#444;" onclick="window.open('${item.obb}')">DOWNLOAD OBB</button><button style="background:#444;" onclick="window.open('${item.dat}')">DOWNLOAD DATA</button>` :
                 `<button style="background:green;" onclick="window.open('${item.link}')">${btnLabel}</button>`;
             
             document.getElementById('detail-content').innerHTML = `<img src="${item.icon}" style="width:100%; border-radius:12px;"><h1 style="color:red; margin-top:15px;">${item.name}</h1><p style="margin:15px 0; white-space:pre-wrap;">${item.desc}</p>${btns}`;
@@ -243,18 +315,11 @@
         window.toggleAuth = () => { document.getElementById('login-form').style.display = document.getElementById('login-form').style.display === 'none' ? 'block' : 'none'; document.getElementById('reg-form').style.display = document.getElementById('reg-form').style.display === 'none' ? 'block' : 'none'; };
         window.handleRegister = () => { const n = document.getElementById('regName').value, e = document.getElementById('regEmail').value, p = document.getElementById('regPass').value; if(e && p) push(ref(db, 'users/'), { name: n, email: e, pass: p }).then(() => { alert("Done!"); toggleAuth(); }); };
         window.handleLogin = () => { const e = document.getElementById('logEmail').value, p = document.getElementById('logPass').value; get(ref(db, 'users/')).then(s => { const users = s.val(); let f = false; for(let id in users) if(users[id].email === e && users[id].pass === p) f = true; if(f) { document.getElementById('auth-screen').style.display='none'; document.getElementById('main-app').style.display='block'; document.getElementById('app-header').style.display='flex'; } else alert("Wrong!"); }); };
-        
-        window.handleLogout = () => {
-            document.getElementById('main-app').style.display = 'none';
-            document.getElementById('app-header').style.display = 'none';
-            document.getElementById('auth-screen').style.display = 'flex';
-            document.getElementById('logEmail').value = '';
-            document.getElementById('logPass').value = '';
-        };
+        window.handleLogout = () => { location.reload(); };
 
         window.showPage = (id) => { if(id !== 'detail-page' && id !== 'manage-all-page' && id !== 'admin-login-page') prevPage = id; document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); document.getElementById('sidebar').classList.remove('active'); };
         window.goBack = () => showPage(prevPage);
-        window.removeItem = (p) => { if(confirm("Are you sure you want to delete this?")) remove(ref(db, p)); };
+        window.removeItem = (p) => { if(confirm("Are you sure?")) remove(ref(db, p)); };
         window.filterGames = (q, c) => { const filtered = allData.filter(i => i.name.toLowerCase().includes(q.toLowerCase())); renderGrids(filtered); };
     </script>
 </body>
