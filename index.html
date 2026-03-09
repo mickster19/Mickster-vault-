@@ -35,7 +35,6 @@
         .mod-desc { font-size: 0.85rem; color: #ccc; margin-bottom: 15px; line-height: 1.4; }
         .buy-btn { background: #25d366; color: black; font-weight: bold; border: none; padding: 10px; border-radius: 5px; cursor: pointer; display: block; text-decoration: none; text-align: center; }
 
-        /* BETTING STYLE */
         .bet-card { background: #1a1111; border: 1px solid #333; border-radius: 10px; padding: 15px; margin-bottom: 15px; border-top: 3px solid #ff0000; }
         .bet-match { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #333; font-size: 0.85rem; }
         .bet-codes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 15px; }
@@ -47,8 +46,6 @@
         .view-all { color: red; font-size: 0.7rem; cursor: pointer; font-weight: bold; }
         input, select, textarea, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: #000; color: white; }
         button { background: var(--primary-red); color: white; font-family: 'Bebas Neue'; cursor: pointer; border: none; font-size: 1.1rem; }
-        .stat-card { background: linear-gradient(45deg, #ff0000, #8b0000); padding: 20px; border-radius: 12px; text-align: center; cursor: pointer; margin-bottom: 20px; }
-        .user-row { background: #111; padding: 10px; border-radius: 5px; margin-bottom: 5px; border-left: 3px solid red; font-size: 0.8rem; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -60,10 +57,7 @@
             <input type="email" id="logEmail" placeholder="Email">
             <input type="password" id="logPass" placeholder="Password">
             <button onclick="handleLogin()">LOG IN</button>
-            <p style="margin-top:15px; font-size:0.75rem;">
-                <a href="https://wa.me/255619578699?text=forgot%20password" style="color:gray; text-decoration:none;">Forgot password?</a>
-            </p>
-            <p style="margin-top:10px; font-size:0.8rem;">No account? <span style="color:red; cursor:pointer;" onclick="toggleAuth()">Register</span></p>
+            <p style="margin-top:20px; font-size:0.8rem;">No account? <span style="color:red; cursor:pointer;" onclick="toggleAuth()">Register</span></p>
         </div>
         <div class="auth-box" id="reg-form" style="display:none;">
             <h1 style="color:red;">REGISTER</h1>
@@ -91,7 +85,6 @@
             <a href="#" onclick="showPage('skins-free-page')">🎨 BUSSID SKINS FREE</a>
             <a href="#" onclick="showPage('android-page')">📱 ANDROID</a>
             <a href="#" onclick="showPage('pc-page')">💻 PC GAMES</a>
-            <a href="#" onclick="showPage('admin-login-page')">🛠️ ADMIN</a>
         </div>
 
         <div id="home-page" class="page-content active-page">
@@ -144,64 +137,6 @@
         <div id="ets2-page" class="page-content"><button onclick="showPage('market-menu-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><h2 style="color:#ff8c00; margin: 15px 0;">ETS2 MODS</h2><div id="ets2-container"></div></div>
         <div id="android-page" class="page-content"><button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><div id="android-grid" class="full-grid" style="margin-top:15px;"></div></div>
         <div id="pc-page" class="page-content"><button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><div id="pc-grid" class="full-grid" style="margin-top:15px;"></div></div>
-
-        <div id="admin-login-page" class="page-content">
-            <div style="max-width:350px; margin:auto;"><h1 style="color:orange; text-align:center;">ADMIN</h1><input type="text" id="admUser" placeholder="Username"><input type="password" id="admPass" placeholder="Password"><button onclick="verifyAdmin()" style="background:orange; color:black;">ENTER PANEL</button></div>
-        </div>
-
-        <div id="admin-page" class="page-content">
-            <div class="stat-card" onclick="showPage('manage-all-page')"><p>TOTAL USERS</p><h1 id="userCount">0</h1></div>
-            
-            <div style="background:#111; padding:15px; border-radius:10px; border:1px solid #ff0000; margin-bottom:20px;">
-                <h3 style="color:red;">POST BETTING MKEKA</h3>
-                <input type="text" id="betDate" placeholder="Date (e.g. 08/03/2026)">
-                <label>Idadi ya Mechi:</label>
-                <select id="betMatchCount" onchange="generateBetInputs()">
-                    <option value="3">3 Matches</option><option value="4">4 Matches</option>
-                    <option value="5">5 Matches</option><option value="6">6 Matches</option>
-                    <option value="10">10 Matches</option>
-                </select>
-                <div id="betMatchInputs"></div>
-                <input type="text" id="betTotalOdds" placeholder="Total Odds (e.g 10.50)">
-                <input type="text" id="betPawaCode" placeholder="Betpawa Code">
-                <input type="text" id="betSportyCode" placeholder="Sportybet Code">
-                <input type="text" id="betWayCode" placeholder="Betway Code">
-                <button onclick="upload('bet')" style="background:red;">POST MKEKA</button>
-            </div>
-
-            <div style="background:#111; padding:15px; border-radius:10px; border:1px solid #0056b3; margin-bottom:20px;">
-                <h3 style="color:#0056b3;">UPLOAD BUSSID SKIN FREE</h3>
-                <input type="text" id="sName" placeholder="Skin Name (e.g. Kimotco Luxury)">
-                <input type="text" id="sIcon" placeholder="Icon URL">
-                <input type="text" id="sLink" placeholder="Direct Download Link">
-                <button onclick="upload('skin')" style="background:#0056b3;">UPLOAD SKIN</button>
-            </div>
-
-            <div style="background:#111; padding:15px; border-radius:10px; border:1px solid #333; margin-bottom:20px;">
-                <h3>SLIDER PANEL</h3>
-                <input type="text" class="sl-in" placeholder="Image URL 1"><input type="text" class="sl-in" placeholder="Image URL 2"><input type="text" class="sl-in" placeholder="Image URL 3"><input type="text" class="sl-in" placeholder="Image URL 4"><input type="text" class="sl-in" placeholder="Image URL 5">
-                <button onclick="saveSlider()" style="background:orange; color:black;">UPDATE SLIDER</button>
-            </div>
-
-            <div style="background:#111; padding:15px; border-radius:10px; border:1px solid #333; margin-bottom:20px;">
-                <h3>UPLOAD GAME (ANDROID/PC)</h3>
-                <select id="gCat"><option value="android">ANDROID</option><option value="pc">PC</option></select>
-                <input type="text" id="gName" placeholder="Name"><input type="text" id="gIcon" placeholder="Icon URL"><textarea id="gInfo" placeholder="Description"></textarea>
-                <select id="linkType" onchange="toggleLinkInputs()"><option value="single">Single Link</option><option value="pack">Pack (APK, OBB, DATA)</option></select>
-                <div id="singleLinkBox"><input type="text" id="gLink" placeholder="Download Link"></div>
-                <div id="packLinkBox" style="display:none; border:1px dashed red; padding:10px; margin-top:10px;"><input type="text" id="apkL" placeholder="APK Link"><input type="text" id="obbL" placeholder="OBB Link"><input type="text" id="datL" placeholder="DATA Link"></div>
-                <button onclick="upload('game')">UPLOAD</button>
-            </div>
-            
-            <div style="background:#111; padding:15px; border-radius:10px; border:1px solid #25d366;">
-                <h3 style="color:#25d366;">MARKET UPLOAD</h3>
-                <select id="eCat"><option value="efootball">EFOOTBALL SQUAD</option><option value="bussid">BUSSID MOD</option> <option value="ets2">ETS2 MOD</option></select>
-                <input type="text" id="eName" placeholder="Name"><input type="text" id="eIcon" placeholder="Image URL"><input type="text" id="ePrice" placeholder="Price"><textarea id="eDesc" placeholder="Details"></textarea><input type="text" id="eLink" placeholder="WhatsApp/Buy Link">
-                <button onclick="upload('market')" style="background:#25d366;">POST TO MARKET</button>
-            </div>
-        </div>
-
-        <div id="manage-all-page" class="page-content"><button onclick="showPage('admin-page')" style="width:auto; padding:5px 15px;">← BACK</button><div id="user-details-list"></div><div id="delete-master-list"></div></div>
         <div id="detail-page" class="page-content"><button onclick="goBack()" style="width:auto; padding:5px 15px; margin-bottom:15px;">← BACK</button><div id="detail-content"></div></div>
     </div>
 
@@ -213,61 +148,19 @@
         const app = initializeApp(firebaseConfig); const db = getDatabase(app);
         let allData = []; let prevPage = 'home-page';
 
-        if ("Notification" in window) { Notification.requestPermission(); }
-        const sendNotify = (title, body) => { if (Notification.permission === "granted") { new Notification(title, { body, icon: "https://cdn-icons-png.flaticon.com/512/3502/3502688.png" }); } };
-
-        window.generateBetInputs = () => {
-            const count = document.getElementById('betMatchCount').value;
-            let html = '';
-            for(let i=1; i<=count; i++) {
-                html += `<div style="display:flex; gap:5px; margin-top:5px;"><input type="text" class="match-name" placeholder="Match ${i}" style="flex:2;"><input type="text" class="match-pick" placeholder="Pick" style="flex:1;"></div>`;
-            }
-            document.getElementById('betMatchInputs').innerHTML = html;
-        };
-        window.generateBetInputs();
-
-        window.verifyAdmin = () => { if(document.getElementById('admUser').value === "Mickster19" && document.getElementById('admPass').value === "$120") showPage('admin-page'); else alert("Wrong!"); };
-
-        window.upload = (m) => {
-            let data;
-            if(m === 'bet') {
-                const matches = Array.from(document.querySelectorAll('.match-name')).map((input, idx) => ({ team: input.value, pick: document.querySelectorAll('.match-pick')[idx].value }));
-                data = { cat: 'betting', matches, odds: document.getElementById('betTotalOdds').value, pawa: document.getElementById('betPawaCode').value, sporty: document.getElementById('betSportyCode').value, way: document.getElementById('betWayCode').value, date: document.getElementById('betDate').value };
-                push(ref(db, 'betting/'), data).then(() => { set(ref(db, 'notify'), { title: "Mickster Mkeka Mpya!", body: "Mkeka mpya umewekwa tayari!", time: Date.now() }); alert("Mkeka Posted!"); });
-                return;
-            }
-            if(m === 'skin') {
-                data = { name: document.getElementById('sName').value, icon: document.getElementById('sIcon').value, link: document.getElementById('sLink').value, cat: 'skins_free' };
-                push(ref(db, 'games/'), data).then(() => { set(ref(db, 'notify'), { title: "New Skin Free!", body: data.name + " is now available!", time: Date.now() }); alert("Skin Uploaded!"); });
-                return;
-            }
-            if(m === 'game'){
-                const isP = document.getElementById('linkType').value === 'pack';
-                data = { name: document.getElementById('gName').value, icon: document.getElementById('gIcon').value, desc: document.getElementById('gInfo').value, cat: document.getElementById('gCat').value, type: isP ? 'pack' : 'single', link: isP ? '' : document.getElementById('gLink').value, apk: isP ? document.getElementById('apkL').value : '', obb: isP ? document.getElementById('obbL').value : '', dat: isP ? document.getElementById('datL').value : '' };
-                push(ref(db, 'games/'), data).then(() => { set(ref(db, 'notify'), { title: "New Game Uploaded!", body: data.name + " is available!", time: Date.now() }); alert("Success!"); });
-            } else {
-                data = { name: document.getElementById('eName').value, icon: document.getElementById('eIcon').value, desc: document.getElementById('eDesc').value, price: document.getElementById('ePrice').value, link: document.getElementById('eLink').value, cat: document.getElementById('eCat').value, type: 'market' };
-                push(ref(db, 'games/'), data).then(() => { set(ref(db, 'notify'), { title: "Market Update!", body: "New item in Games Market!", time: Date.now() }); alert("Success!"); });
-            }
-        };
-
-        onValue(ref(db, 'notify'), (s) => { const n = s.val(); if(n && (Date.now() - n.time < 10000)) { sendNotify(n.title, n.body); } });
-
         onValue(ref(db, 'betting/'), (s) => {
             const container = document.getElementById('betting-container'); container.innerHTML = "";
             const slips = s.val() || {};
             Object.keys(slips).reverse().forEach(id => {
                 const slip = slips[id];
                 let matchesHtml = slip.matches.map(m => `<div class="bet-match"><span>${m.team}</span> <b>${m.pick}</b></div>`).join('');
-                container.innerHTML += `<div class="bet-card"><div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #444;"><div style="display:flex; flex-direction:column;"><b style="color:red;">TOTAL ODDS: ${slip.odds}</b><small style="font-size:10px; color:gray;">Date: ${slip.date || 'N/A'}</small></div><button onclick="removeItem('betting/${id}')" style="width:auto; padding:2px 8px; font-size:10px; background:gray; margin:0;">DEL</button></div>${matchesHtml}<div class="bet-codes"><div class="code-box" onclick="copyCode('${slip.pawa}')"><small>BETPAWA</small><b>${slip.pawa}</b></div><div class="code-box" onclick="copyCode('${slip.sporty}')"><small>SPORTYBET</small><b>${slip.sporty}</b></div><div class="code-box" onclick="copyCode('${slip.way}')"><small>BETWAY</small><b>${slip.way}</b></div></div></div>`;
+                container.innerHTML += `<div class="bet-card"><div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #444;"><div style="display:flex; flex-direction:column;"><b style="color:red;">TOTAL ODDS: ${slip.odds}</b><small style="font-size:10px; color:gray;">Date: ${slip.date || 'N/A'}</small></div></div>${matchesHtml}<div class="bet-codes"><div class="code-box" onclick="copyCode('${slip.pawa}')"><small>BETPAWA</small><b>${slip.pawa}</b></div><div class="code-box" onclick="copyCode('${slip.sporty}')"><small>SPORTYBET</small><b>${slip.sporty}</b></div><div class="code-box" onclick="copyCode('${slip.way}')"><small>BETWAY</small><b>${slip.way}</b></div></div></div>`;
             });
         });
 
         onValue(ref(db, 'games/'), (s) => {
             allData = s.val() ? Object.keys(s.val()).map(id => ({...s.val()[id], fbId: id})) : [];
             renderGrids(allData);
-            const delM = document.getElementById('delete-master-list'); delM.innerHTML = "<h2 style='margin-top:20px;'>MANAGE CONTENT</h2>";
-            allData.forEach(item => { delM.innerHTML += `<div class="user-row" style="display:flex; justify-content:space-between;"><span>${item.name}</span><button style="width:auto; padding:2px 10px; background:red; margin:0;" onclick="removeItem('games/${item.fbId}')">DEL</button></div>`; });
         });
 
         const renderGrids = (data) => {
@@ -295,14 +188,10 @@
         };
 
         window.copyCode = (code) => { if(!code || code === 'undefined') return; navigator.clipboard.writeText(code); alert("Code copied: " + code); };
-        window.saveSlider = () => { const urls = Array.from(document.querySelectorAll('.sl-in')).map(i => i.value).filter(v => v !== ""); set(ref(db, 'slider/'), urls).then(() => alert("Updated!")); };
         window.handleLogin = () => { const e = document.getElementById('logEmail').value, p = document.getElementById('logPass').value; get(ref(db, 'users/')).then(s => { const users = s.val(); let f = false; for(let id in users) if(users[id].email === e && users[id].pass === p) f = true; if(f) { document.getElementById('auth-screen').style.display='none'; document.getElementById('main-app').style.display='block'; document.getElementById('app-header').style.display='flex'; } else alert("Wrong!"); }); };
-        window.showPage = (id) => { if(id !== 'detail-page' && id !== 'manage-all-page' && id !== 'admin-login-page') prevPage = id; document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); document.getElementById('sidebar').classList.remove('active'); };
-        window.removeItem = (p) => { if(confirm("Are you sure?")) remove(ref(db, p)); };
+        window.showPage = (id) => { if(id !== 'detail-page') prevPage = id; document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); document.getElementById('sidebar').classList.remove('active'); };
         window.handleLogout = () => location.reload();
-        window.toggleLinkInputs = () => { const isP = document.getElementById('linkType').value === 'pack'; document.getElementById('packLinkBox').style.display = isP ? 'block' : 'none'; document.getElementById('singleLinkBox').style.display = isP ? 'none' : 'block'; };
         onValue(ref(db, 'slider/'), (s) => { const imgs = s.val() || ["https://via.placeholder.com/800x400"]; document.getElementById('mainSlider').innerHTML = imgs.map(url => `<div class="slide" style="background-image:url('${url}')"></div>`).join(''); let cur = 0; clearInterval(window.slInt); window.slInt = setInterval(() => { cur = (cur + 1) % imgs.length; const sl = document.getElementById('mainSlider'); if(sl) sl.style.transform = `translateX(-${cur * 100}%)`; }, 4000); });
-        onValue(ref(db, 'users/'), (s) => { const users = s.val() || {}; document.getElementById('userCount').innerText = Object.keys(users).length; const det = document.getElementById('user-details-list'); det.innerHTML = "<h2>USERS</h2>"; for(let id in users) det.innerHTML += `<div class="user-row" style="display:flex; justify-content:space-between; align-items:center;"><div>${users[id].name}<br>${users[id].email}<br><span style="color:yellow">PASS: ${users[id].pass}</span></div><button style="width:auto; padding:5px 10px; background:red; margin:0;" onclick="removeItem('users/${id}')">DELETE</button></div>`; });
         window.goBack = () => showPage(prevPage);
         window.filterGames = (q, c) => { const filtered = allData.filter(i => i.name.toLowerCase().includes(q.toLowerCase())); renderGrids(filtered); };
         window.toggleAuth = () => { document.getElementById('login-form').style.display = document.getElementById('login-form').style.display === 'none' ? 'block' : 'none'; document.getElementById('reg-form').style.display = document.getElementById('reg-form').style.display === 'none' ? 'block' : 'none'; };
