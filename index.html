@@ -5,43 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mickster Vault | Pro Global</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        :root { --primary-red: #ff0000; --bg-dark: #0a0505; --card-bg: #160d0d; --text-main: white; --border-color: #2a1a1a; --header-bg: rgba(10, 5, 5, 0.95); --success-green: #25d366; }
+        :root { --primary-red: #ff0000; --bg-dark: #0a0505; --card-bg: #160d0d; --text-main: white; --border-color: #2a1a1a; --header-bg: rgba(10, 5, 5, 0.95); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; transition: 0.3s; }
         h1, h2, h3, .logo-text { font-family: 'Bebas Neue', cursive; letter-spacing: 1px; }
         body { background: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
-        
-        /* Auth Screens */
         #auth-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .auth-box { background: var(--card-bg); padding: 30px; border-radius: 15px; border: 1px solid var(--primary-red); width: 100%; max-width: 400px; text-align: center; }
-        
         header { position: fixed; top: 0; width: 100%; height: 60px; display: none; align-items: center; justify-content: space-between; padding: 0 15px; background: var(--header-bg); z-index: 1000; border-bottom: 2px solid var(--primary-red); }
         .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100%; background: var(--card-bg); border-right: 2px solid var(--primary-red); padding-top: 70px; z-index: 1050; }
         .sidebar.active { left: 0; }
         .sidebar a { padding: 15px 25px; text-decoration: none; color: white; display: block; border-bottom: 1px solid var(--border-color); font-family: 'Bebas Neue'; }
-        
         .page-content { display: none; padding: 75px 4% 40px; min-height: 100vh; }
         .active-page { display: block; animation: fadeIn 0.4s; }
-        
-        /* Streaming Styles */
-        .pricing-box { background: #111; padding: 15px; border-radius: 10px; border: 1px solid #333; text-align: center; margin-bottom: 10px; }
-        .price-tag { font-size: 1.3rem; color: var(--success-green); font-weight: bold; }
-        .video-player-container { width: 100%; background: #000; border-radius: 10px; overflow: hidden; position: relative; padding-top: 56.25%; border: 1px solid red; }
-        #videoPlayer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        
-        #subscription-timer-box { background: linear-gradient(145deg, #111, #222); border: 1px solid gold; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; box-shadow: 0 0 15px rgba(255,215,0,0.2); }
-        @keyframes blink-red { 0% { opacity: 1; border-color: red; } 50% { opacity: 0.4; border-color: transparent; } 100% { opacity: 1; border-color: red; } }
-
-        /* Grids & Cards */
+        .slider-wrapper { width: 100%; height: 190px; border-radius: 12px; overflow: hidden; position: relative; border: 1px solid var(--border-color); margin-bottom: 15px; }
+        .slides { display: flex; height: 100%; transition: 1s ease-in-out; }
+        .slide { min-width: 100%; background-size: cover; background-position: center; }
         .home-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
         .full-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         .card { background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; text-align: center; padding-bottom: 5px; cursor: pointer; }
-        .card img { width: 100%; height: 80px; object-fit: cover; }
-        .card b { font-size: 10px; display: block; margin-top: 5px; }
+        .card img { width: 100%; height: 75px; object-fit: cover; }
+        .card b { font-size: 9px; display: block; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .mod-panel { background: #1a1111; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; overflow: hidden; border-left: 4px solid red; }
+        .mod-panel img { width: 100%; height: 180px; object-fit: cover; }
+        .mod-info { padding: 15px; }
+        .mod-name { font-size: 1.4rem; color: #fff; margin-bottom: 5px; }
+        .mod-price { color: #25d366; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
+        .mod-desc { font-size: 0.85rem; color: #ccc; margin-bottom: 15px; line-height: 1.4; }
+        .buy-btn { background: #25d366; color: black; font-weight: bold; border: none; padding: 10px; border-radius: 5px; cursor: pointer; display: block; text-decoration: none; text-align: center; }
 
-        input, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: #000; color: white; }
-        button { background: var(--primary-red); font-family: 'Bebas Neue'; cursor: pointer; border: none; font-size: 1.1rem; }
+        .bet-card { background: #1a1111; border: 1px solid #333; border-radius: 10px; padding: 15px; margin-bottom: 15px; border-top: 3px solid #ff0000; }
+        .bet-match { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #333; font-size: 0.85rem; }
+        .bet-codes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 15px; }
+        .code-box { background: #000; padding: 8px; border-radius: 5px; text-align: center; border: 1px solid #444; cursor: pointer; }
+        .code-box small { display: block; font-size: 0.6rem; color: #aaa; }
+        .code-box b { font-size: 0.8rem; color: #fff; }
+
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .view-all { color: red; font-size: 0.7rem; cursor: pointer; font-weight: bold; }
+        input, select, textarea, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: #000; color: white; }
+        button { background: var(--primary-red); color: white; font-family: 'Bebas Neue'; cursor: pointer; border: none; font-size: 1.1rem; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -52,16 +56,16 @@
             <h1 style="color:red; font-size:2.5rem;">MICKSTER VAULT</h1>
             <input type="email" id="logEmail" placeholder="Email">
             <input type="password" id="logPass" placeholder="Password">
-            <button onclick="handleLogin()">INGIA (LOG IN)</button>
-            <p style="margin-top:20px; font-size:0.8rem;">Huna akaunti? <span style="color:red; cursor:pointer;" onclick="toggleAuth()">Jisajili</span></p>
+            <button onclick="handleLogin()">LOG IN</button>
+            <p style="margin-top:20px; font-size:0.8rem;">No account? <span style="color:red; cursor:pointer;" onclick="toggleAuth()">Register</span></p>
         </div>
         <div class="auth-box" id="reg-form" style="display:none;">
-            <h1 style="color:red;">SAJILI AKAUNTI</h1>
-            <input type="text" id="regName" placeholder="Jina Kamili">
+            <h1 style="color:red;">REGISTER</h1>
+            <input type="text" id="regName" placeholder="Full Name">
             <input type="email" id="regEmail" placeholder="Email">
             <input type="password" id="regPass" placeholder="Password">
-            <button onclick="handleRegister()">TENGENEZA AKAUNTI</button>
-            <p onclick="toggleAuth()" style="margin-top:15px; font-size:0.8rem; cursor:pointer;">Unayo tayari? <span style="color:red;">Ingia</span></p>
+            <button onclick="handleRegister()">CREATE ACCOUNT</button>
+            <p onclick="toggleAuth()" style="margin-top:15px; font-size:0.8rem; cursor:pointer;">Have account? <span style="color:red;">Log in</span></p>
         </div>
     </div>
 
@@ -76,183 +80,122 @@
 
         <div class="sidebar" id="sidebar">
             <a href="#" onclick="showPage('home-page')">🏠 HOME</a>
-            <a href="#" onclick="showPage('streaming-page')">📺 MICKSTER TV (PREMIUM)</a>
-            <a href="#" onclick="showPage('betting-page')">⚽ BETTING TIPS</a>
+            <a href="#" onclick="showPage('betting-page')">⚽ BETTING (MKEKA)</a>
             <a href="#" onclick="showPage('market-menu-page')">🎮 GAMES MARKET</a>
+            <a href="#" onclick="showPage('skins-free-page')">🎨 BUSSID SKINS FREE</a>
+            <a href="#" onclick="showPage('android-page')">📱 ANDROID</a>
+            <a href="#" onclick="showPage('pc-page')">💻 PC GAMES</a>
         </div>
 
         <div id="home-page" class="page-content active-page">
-            <h2 style="color:red; margin-bottom:15px;">WELCOME TO THE VAULT</h2>
+            <input type="text" style="margin-bottom:15px; border-radius:20px;" placeholder="Search..." onkeyup="filterGames(this.value, 'home')">
+            <div class="slider-wrapper"><div class="slides" id="mainSlider"></div></div>
+            
+            <div class="section-header">
+                <h3>ANDROID</h3>
+                <span class="view-all" onclick="showPage('android-page')">VIEW ALL</span>
+            </div>
             <div id="home-android-grid" class="home-grid"></div>
+            
+            <div class="section-header">
+                <h3>PC GAMES</h3>
+                <span class="view-all" onclick="showPage('pc-page')">VIEW ALL</span>
+            </div>
+            <div id="home-pc-grid" class="home-grid"></div>
+            
+            <button style="background:darkred; padding:15px; margin-top:20px;" onclick="showPage('market-menu-page')">🎮 GO TO GAMES MARKET</button>
         </div>
 
-        <div id="streaming-page" class="page-content">
-            <button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px; margin-bottom:15px;">← RUDI</button>
-            <h1 style="color:red; margin-bottom:10px;">MICKSTER STREAMING TV</h1>
+        <div id="betting-page" class="page-content">
+            <button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px; margin-bottom:15px;">← BACK</button>
+            <h1 style="color:red; margin-bottom:15px;">FREE BETTING TIPS</h1>
+            <div id="betting-container"></div>
+        </div>
 
-            <div id="subscription-timer-box" style="display:none;">
-                <small style="color:gold;">KIFURUSHI CHAKO KINAISHA BAADA YA:</small>
-                <div id="timer-display" style="font-weight:bold; font-size:1.8rem; color:white; font-family:'Bebas Neue';">00:00:00</div>
-            </div>
+        <div id="skins-free-page" class="page-content">
+            <button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px; margin-bottom:15px;">← BACK</button>
+            <h1 style="color:red; margin-bottom:15px;">BUSSID SKINS FREE</h1>
+            <div id="skins-free-grid" class="full-grid"></div>
+        </div>
 
-            <div id="streaming-main-content" style="display:none; margin-bottom:20px;">
-                <div class="video-player-container"><video id="videoPlayer" controls autoplay></video></div>
-                <h3 id="currentChannelName" style="margin-top:10px; color:red;">Channel...</h3>
-            </div>
-
-            <div id="tv-list-section">
-                <h3 style="margin-bottom:15px; border-left:3px solid red; padding-left:10px;">LIVE CHANNELS</h3>
-                <div id="tv-channels-grid" class="full-grid"></div>
-            </div>
-
-            <div id="streaming-auth-check" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:1500; align-items:center; justify-content:center; padding:20px;">
-                <div style="background:var(--card-bg); padding:30px; border-radius:15px; border:1px solid red; text-align:center; max-width:400px; margin:auto;">
-                    <h2 style="color:red; font-size:2rem;">🔒 ACCESS LOCKED</h2>
-                    <p style="font-size:0.8rem; margin-bottom:20px;">Lipia sasa ufungue channel zote za Premium.</p>
-                    <div class="pricing-box"><h4>SIKU 1</h4><div class="price-tag">700 TZS</div><button onclick="payFlow('Siku 1', 700)" style="background:red;">LIPA</button></div>
-                    <div class="pricing-box"><h4>WIKI 1</h4><div class="price-tag">2,000 TZS</div><button onclick="payFlow('Wiki 1', 2000)" style="background:red;">LIPA</button></div>
-                    <div class="pricing-box"><h4>MWEZI 1</h4><div class="price-tag">4,000 TZS</div><button onclick="payFlow('Mwezi 1', 4000)" style="background:red;">LIPA</button></div>
-                    <button onclick="closePayMenu()" style="background:#333; margin-top:15px;">CANCEL</button>
+        <div id="market-menu-page" class="page-content">
+            <button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px; margin-bottom:15px;">← BACK</button>
+            <h1 style="text-align:center; color:red; margin-bottom:20px;">GAMES MARKET</h1>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="border: 1px solid #333; padding: 10px; border-radius: 8px; background: #111;">
+                    <h3 style="color: #fff; margin-bottom: 10px;">1. EFOOTBALL MARKET</h3>
+                    <button style="background: green; margin-top: 0;" onclick="window.open('https://wa.me/255619578699?text=Nahitaji kuuza kikosi')">UZA KIKOSI</button>
+                    <button style="background: #e60000;" onclick="showPage('efootball-list-page')">NUNUA KIKOSI</button>
                 </div>
+                <button style="height:70px; font-size:1.2rem; background: #0056b3;" onclick="showPage('bussid-page')">2. BUS SIMULATOR INDONESIA MODS</button>
+                <button style="height:70px; font-size:1.2rem; background: #ff8c00;" onclick="showPage('ets2-page')">3. ETS2 MODS</button>
             </div>
         </div>
 
-        <div id="betting-page" class="page-content"><h1>Betting Tips...</h1></div>
-        <div id="market-menu-page" class="page-content"><h1>Market...</h1></div>
-        <div id="success-page" class="page-content">
-            <div style="text-align:center; padding-top:100px;">
-                <h1 style="color:var(--success-green); font-size:4rem;">✔</h1>
-                <h2 style="color:white;">MALIPO YAMEPOKELEWA!</h2>
-                <p>Kifurushi chako kimeanza kutumika sasa hivi.</p>
-                <button onclick="showPage('streaming-page')" style="background:var(--success-green); width:200px; margin-top:30px;">TAZAMA TV</button>
-            </div>
-        </div>
+        <div id="efootball-list-page" class="page-content"><button onclick="showPage('market-menu-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><h2 style="color:red; margin: 15px 0;">NUNUA KIKOSI</h2><div id="efootball-grid" class="full-grid"></div></div>
+        <div id="bussid-page" class="page-content"><button onclick="showPage('market-menu-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><h2 style="color:#0056b3; margin: 15px 0;">BUSSID MODS & MAPS</h2><div id="bussid-container"></div></div>
+        <div id="ets2-page" class="page-content"><button onclick="showPage('market-menu-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><h2 style="color:#ff8c00; margin: 15px 0;">ETS2 MODS</h2><div id="ets2-container"></div></div>
+        <div id="android-page" class="page-content"><button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><div id="android-grid" class="full-grid" style="margin-top:15px;"></div></div>
+        <div id="pc-page" class="page-content"><button onclick="showPage('home-page')" style="width:auto; background:#333; padding:5px 15px;">← BACK</button><div id="pc-grid" class="full-grid" style="margin-top:15px;"></div></div>
+        <div id="detail-page" class="page-content"><button onclick="goBack()" style="width:auto; padding:5px 15px; margin-bottom:15px;">← BACK</button><div id="detail-content"></div></div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, set, push, onValue, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, set, push, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        const firebaseConfig = { apiKey: "AIzaSyDiNjWTVcqZYsiHDWyxvU35qoAakwhFZKk", authDomain: "mickster-vault.firebaseapp.com", databaseURL: "https://mickster-vault-default-rtdb.firebaseio.com", projectId: "mickster-vault" };
+        const firebaseConfig = { apiKey: "AIzaSyDiNjWTVcqZYsiHDWyxvU35qoAakwhFZKk", authDomain: "mickster-vault.firebaseapp.com", databaseURL: "https://mickster-vault-default-rtdb.firebaseio.com", projectId: "mickster-vault", storageBucket: "mickster-vault.firebasestorage.app", messagingSenderId: "642049778492", appId: "1:642049778492:web:ca1ab399d3a5ac4a353439" };
         const app = initializeApp(firebaseConfig); const db = getDatabase(app);
+        let allData = []; let prevPage = 'home-page';
 
-        // --- GLOBAL VARIABLES NA MEMORY ---
-        let isSubscribed = localStorage.getItem('isSubscribed') === 'true';
-        let expirationTime = localStorage.getItem('expirationTime') ? parseInt(localStorage.getItem('expirationTime')) : null;
-        let timerInterval = null;
-        let reminderSent = false;
+        onValue(ref(db, 'betting/'), (s) => {
+            const container = document.getElementById('betting-container'); container.innerHTML = "";
+            const slips = s.val() || {};
+            Object.keys(slips).reverse().forEach(id => {
+                const slip = slips[id];
+                let matchesHtml = slip.matches.map(m => `<div class="bet-match"><span>${m.team}</span> <b>${m.pick}</b></div>`).join('');
+                container.innerHTML += `<div class="bet-card"><div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #444;"><div style="display:flex; flex-direction:column;"><b style="color:red;">TOTAL ODDS: ${slip.odds}</b><small style="font-size:10px; color:gray;">Date: ${slip.date || 'N/A'}</small></div></div>${matchesHtml}<div class="bet-codes"><div class="code-box" onclick="copyCode('${slip.pawa}')"><small>BETPAWA</small><b>${slip.pawa}</b></div><div class="code-box" onclick="copyCode('${slip.sporty}')"><small>SPORTYBET</small><b>${slip.sporty}</b></div><div class="code-box" onclick="copyCode('${slip.way}')"><small>BETWAY</small><b>${slip.way}</b></div></div></div>`;
+            });
+        });
 
-        let tvChannels = [
-            { name: "SS Premier League HD", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_C29hWpX_nIas39uXv68_m7XG9T8mG8Ld2w&s", url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" },
-            { name: "Mickster Action Movies", icon: "https://via.placeholder.com/150", url: "https://content.jwplatform.com/manifests/vM7Ww6Gq.m3u8" }
-        ];
+        onValue(ref(db, 'games/'), (s) => {
+            allData = s.val() ? Object.keys(s.val()).map(id => ({...s.val()[id], fbId: id})) : [];
+            renderGrids(allData);
+        });
 
-        // --- AUTH & NAV ---
-        window.handleLogin = () => { document.getElementById('auth-screen').style.display='none'; document.getElementById('main-app').style.display='block'; document.getElementById('app-header').style.display='flex'; checkPersistentSubscription(); };
+        const renderGrids = (data) => {
+            const hA = document.getElementById('home-android-grid'), hP = document.getElementById('home-pc-grid'), eG = document.getElementById('efootball-grid'), aG = document.getElementById('android-grid'), pG = document.getElementById('pc-grid'), bC = document.getElementById('bussid-container'), eC = document.getElementById('ets2-container'), sFG = document.getElementById('skins-free-grid');
+            [hA, hP, eG, aG, pG, bC, eC, sFG].forEach(el => { if(el) el.innerHTML = ""; });
+            let aCount = 0, pCount = 0;
+            data.slice().reverse().forEach(item => {
+                const card = `<div class="card" onclick="openItem('${item.fbId}')"><img src="${item.icon}"><b>${item.name}</b></div>`;
+                const skinCard = `<div class="card" onclick="window.open('${item.link}')"><img src="${item.icon}"><b>${item.name}</b><small style="color:green; font-size:8px;">FREE DOWNLOAD</small></div>`;
+                const marketPanel = `<div class="mod-panel"><img src="${item.icon}"><div class="mod-info"><div class="mod-name">${item.name}</div><div class="mod-price">${item.price || 'Price TSH'}</div><div class="mod-desc">${item.desc}</div><a href="${item.link}" class="buy-btn">NUNUA</a></div></div>`;
+                if(item.cat === 'android') { if(aG) aG.innerHTML += card; if(hA && aCount < 3) { hA.innerHTML += card; aCount++; } }
+                else if(item.cat === 'pc') { if(pG) pG.innerHTML += card; if(hP && pCount < 3) { hP.innerHTML += card; pCount++; } }
+                else if(item.cat === 'skins_free') { if(sFG) sFG.innerHTML += skinCard; }
+                else if(item.cat === 'efootball') { if(eG) eG.innerHTML += card; }
+                else if(item.cat === 'bussid') { if(bC) bC.innerHTML += marketPanel; }
+                else if(item.cat === 'ets2') { if(eC) eC.innerHTML += marketPanel; }
+            });
+        };
+
+        window.openItem = (id) => {
+            const item = allData.find(x => x.fbId === id);
+            let btns = item.type === 'pack' ? `<button style="background:#444;" onclick="window.open('${item.apk}')">DOWNLOAD APK</button><button style="background:#444;" onclick="window.open('${item.obb}')">DOWNLOAD OBB</button><button style="background:#444;" onclick="window.open('${item.dat}')">DOWNLOAD DATA</button>` : `<button style="background:green;" onclick="window.open('${item.link}')">DOWNLOAD NOW</button>`;
+            document.getElementById('detail-content').innerHTML = `<img src="${item.icon}" style="width:100%; border-radius:12px;"><h1 style="color:red; margin-top:15px;">${item.name}</h1><p style="margin:15px 0; white-space:pre-wrap;">${item.desc}</p>${btns}`;
+            showPage('detail-page');
+        };
+
+        window.copyCode = (code) => { if(!code || code === 'undefined') return; navigator.clipboard.writeText(code); alert("Code copied: " + code); };
+        window.handleLogin = () => { const e = document.getElementById('logEmail').value, p = document.getElementById('logPass').value; get(ref(db, 'users/')).then(s => { const users = s.val(); let f = false; for(let id in users) if(users[id].email === e && users[id].pass === p) f = true; if(f) { document.getElementById('auth-screen').style.display='none'; document.getElementById('main-app').style.display='block'; document.getElementById('app-header').style.display='flex'; } else alert("Wrong!"); }); };
+        window.showPage = (id) => { if(id !== 'detail-page') prevPage = id; document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); document.getElementById('sidebar').classList.remove('active'); };
+        window.handleLogout = () => location.reload();
+        onValue(ref(db, 'slider/'), (s) => { const imgs = s.val() || ["https://via.placeholder.com/800x400"]; document.getElementById('mainSlider').innerHTML = imgs.map(url => `<div class="slide" style="background-image:url('${url}')"></div>`).join(''); let cur = 0; clearInterval(window.slInt); window.slInt = setInterval(() => { cur = (cur + 1) % imgs.length; const sl = document.getElementById('mainSlider'); if(sl) sl.style.transform = `translateX(-${cur * 100}%)`; }, 4000); });
+        window.goBack = () => showPage(prevPage);
+        window.filterGames = (q, c) => { const filtered = allData.filter(i => i.name.toLowerCase().includes(q.toLowerCase())); renderGrids(filtered); };
         window.toggleAuth = () => { document.getElementById('login-form').style.display = document.getElementById('login-form').style.display === 'none' ? 'block' : 'none'; document.getElementById('reg-form').style.display = document.getElementById('reg-form').style.display === 'none' ? 'block' : 'none'; };
-        window.handleLogout = () => { localStorage.clear(); location.reload(); };
-
-        window.showPage = (id) => { 
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active-page')); 
-            document.getElementById(id).classList.add('active-page'); 
-            document.getElementById('sidebar').classList.remove('active');
-            if(id === 'streaming-page') loadChannels();
-        };
-
-        // --- STREAMING PERMANENT SYSTEM ---
-        window.loadChannels = () => {
-            document.getElementById('tv-channels-grid').innerHTML = tvChannels.map(ch => `
-                <div class="card" onclick="handleChannelClick('${ch.url}', '${ch.name}')">
-                    <img src="${ch.icon}"><b>${ch.name}</b><small style="color:red; font-size:8px;">PREMIUM</small>
-                </div>`).join('');
-        };
-
-        window.handleChannelClick = (url, name) => {
-            if (!isSubscribed) {
-                document.getElementById('streaming-auth-check').style.display = 'flex';
-            } else {
-                document.getElementById('streaming-main-content').style.display = 'block';
-                document.getElementById('currentChannelName').innerText = name;
-                playVideo(url);
-                window.scrollTo(0,0);
-            }
-        };
-
-        window.payFlow = (plan, amount) => {
-            alert(`OMBI LA MALIPO: ${plan} (TSH ${amount})\nWeka PIN kwenye simu yako.`);
-            setTimeout(() => {
-                let seconds = plan === 'Siku 1' ? 86400 : (plan === 'Wiki 1' ? 604800 : 2592000);
-                
-                // SAVE TO STORAGE (MEMORY)
-                isSubscribed = true;
-                expirationTime = Date.now() + (seconds * 1000);
-                localStorage.setItem('isSubscribed', 'true');
-                localStorage.setItem('expirationTime', expirationTime.toString());
-
-                document.getElementById('streaming-auth-check').style.display = 'none';
-                document.getElementById('subscription-timer-box').style.display = 'block';
-                
-                startTimer();
-                showPage('success-page');
-            }, 2000);
-        };
-
-        function startTimer() {
-            clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                const distance = expirationTime - Date.now();
-                
-                if (distance <= 0) {
-                    clearAllSubscription();
-                    return;
-                }
-
-                // Reminder at 10 mins
-                if (Math.floor(distance / 60000) <= 10 && !reminderSent) {
-                    alert("⚠️ KIFURUSHI CHAKO KINAISHA BAADA YA DAKIKA 10!");
-                    reminderSent = true;
-                }
-
-                // Blinking effect under 1 min
-                if (Math.floor(distance / 1000) <= 60) {
-                    document.getElementById('subscription-timer-box').style.animation = "blink-red 1s infinite";
-                }
-
-                const d = Math.floor(distance / 86400000), h = Math.floor((distance % 86400000) / 3600000), m = Math.floor((distance % 3600000) / 60000), s = Math.floor((distance % 60000) / 1000);
-                document.getElementById('timer-display').innerText = `${d}d ${h}h ${m}m ${s}s`;
-            }, 1000);
-        }
-
-        function checkPersistentSubscription() {
-            if (isSubscribed && expirationTime) {
-                if (expirationTime > Date.now()) {
-                    document.getElementById('subscription-timer-box').style.display = 'block';
-                    startTimer();
-                } else {
-                    clearAllSubscription();
-                }
-            }
-        }
-
-        function clearAllSubscription() {
-            clearInterval(timerInterval);
-            isSubscribed = false;
-            expirationTime = null;
-            localStorage.removeItem('isSubscribed');
-            localStorage.removeItem('expirationTime');
-            document.getElementById('subscription-timer-box').style.display = 'none';
-            document.getElementById('streaming-main-content').style.display = 'none';
-            alert("Muda wa kifurushi umeisha!");
-        }
-
-        window.playVideo = (url) => {
-            const video = document.getElementById('videoPlayer');
-            if (Hls.isSupported()) { const hls = new Hls(); hls.loadSource(url); hls.attachMedia(video); hls.on(Hls.Events.MANIFEST_PARSED, () => video.play()); }
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) { video.src = url; }
-        };
-
-        window.closePayMenu = () => { document.getElementById('streaming-auth-check').style.display = 'none'; };
+        window.handleRegister = () => { const n = document.getElementById('regName').value, e = document.getElementById('regEmail').value, p = document.getElementById('regPass').value; if(e && p) push(ref(db, 'users/'), { name: n, email: e, pass: p }).then(() => { alert("Done!"); toggleAuth(); }); };
     </script>
 </body>
 </html>
-
